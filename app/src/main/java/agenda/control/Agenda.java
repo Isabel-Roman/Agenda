@@ -6,9 +6,10 @@
 package agenda.control;
 
 public class Agenda {
-
+	
 
     public static void main(String[] args) {
+    	byte opcion;
         System.out.println("Bienvenido a la programación");
     }
 }
