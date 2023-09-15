@@ -33,7 +33,7 @@ java {
 
 application {
     // Define the main class for the application.
-    mainClass = 'agenda.App'
+    mainClass = 'agenda.control.Agenda'
 }
 
 tasks.named('test') {
