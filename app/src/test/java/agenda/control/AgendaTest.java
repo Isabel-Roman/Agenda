@@ -10,5 +10,5 @@ import agenda.control.Agenda;
 import static org.junit.jupiter.api.Assertions.*;
 
 class AgendaTest {
-   
+
 }

@@ -22,14 +22,14 @@ class TareasDAOTest {
 
 	@Test
 	void testNueva() {
-		TareaDAO dao=new TareaDAO("D:\\tareas.dat");
+		TareaDAO dao = new TareaDAO("D:\\tareas.dat");
 		System.out.println(dao);
-		Tarea tarea=dao.nueva();
+		Tarea tarea = dao.nueva();
 		tarea.setNombre("nueva2");
 		tarea.setDetalles("detalles2");
-		tarea.setVencimiento( LocalDate.parse("30/12/2023", fmt));
+		tarea.setVencimiento(LocalDate.parse("30/12/2023", fmt));
 		dao.guarda(tarea);
-		
+
 		System.out.println(dao);
 	}
 

@@ -16,19 +16,19 @@ import java.util.Iterator;
 
 public class TareaDAO {
 
-	public TareaDAO(String path) {
-		super();
-		this.path = path;
-		tareas = new ArrayList<Tarea>();
-		leeTodas();
-	}
-
 	private FileOutputStream fos = null;
 	private FileInputStream fis = null;
 	private ObjectOutputStream salida = null;
 	private ObjectInputStream entrada = null;
 	private ArrayList<Tarea> tareas;
 	private String path;
+
+	public TareaDAO(String path) {
+		super();
+		this.path = path;
+		tareas = new ArrayList<Tarea>();
+		leeTodas();
+	}
 
 	private void save() {
 		try {
@@ -45,12 +45,16 @@ public class TareaDAO {
 		}
 	}
 
-	public ArrayList<Tarea> leeTodas() {
+	public ArrayList<Tarea> listarTodas() {
+		return tareas;
+	}
+
+	private ArrayList<Tarea> leeTodas() {
 
 		try {
 			// Para poder leer utilizaremos un FileInputStream pasandole
 			// como referencia el archivo de tipo File.
-			FileInputStream fis = new FileInputStream(path);
+			fis = new FileInputStream(path);
 			entrada = new ObjectInputStream(fis);
 
 			// En una variable objeto de tipo Persona almacenaremos

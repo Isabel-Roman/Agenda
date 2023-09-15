@@ -12,16 +12,14 @@ import agenda.modelo.TareaDAO;
 import agenda.vista.GestorCLI;
 
 public class Agenda {
-	
 
-    public static void main(String[] args) {
-    	byte opcionMenu;       
-        /**
-         * TareaDAO permite manejar las tareas
-         */
-        TareaDAO tareas=new TareaDAO("D:\\tareas.dat");
-        GestorCLI cli=new GestorCLI();
-        
-        
-    }
+	public static void main(String[] args) {
+		byte opcionMenu;
+		/**
+		 * TareaDAO permite manejar las tareas
+		 */
+		TareaDAO tareas = new TareaDAO("D:\\tareas.dat");
+		GestorCLI cli = new GestorCLI();
+
+	}
 }
