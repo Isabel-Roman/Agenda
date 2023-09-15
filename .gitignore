@@ -1,0 +1,24 @@
+# Ignora el direcorio cach� de Gradle
+
+.gradle
+
+# Ignora los directorios que crea el IDE o gradle, que no se suba a git
+
+app/.settings
+.metadata
+app/.classpath
+app/.project
+.gitattributes
+.project
+.settings
+
+# Ignora los ficheros de resultados de construcci�n, tanto Gradle como eclipse
+
+build
+app/bin
+
+# Ignora los ficheros compilados y los paquetes, salvo el gradle wrapper
+
+*.class
+*.jar
+!gradle/wrapper/gradle-wrapper.jar
