@@ -5,11 +5,23 @@
  **/
 package agenda.control;
 
+import java.util.ArrayList;
+
+import agenda.modelo.Tarea;
+import agenda.modelo.TareaDAO;
+import agenda.vista.GestorCLI;
+
 public class Agenda {
 	
 
     public static void main(String[] args) {
-    	byte opcion;
-        System.out.println("Bienvenido a la programación");
+    	byte opcionMenu;       
+        /**
+         * TareaDAO permite manejar las tareas
+         */
+        TareaDAO tareas=new TareaDAO("D:\\tareas.dat");
+        GestorCLI cli=new GestorCLI();
+        
+        
     }
 }

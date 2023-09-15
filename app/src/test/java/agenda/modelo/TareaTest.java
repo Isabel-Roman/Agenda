@@ -4,9 +4,14 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import org.junit.jupiter.api.Test;
+import java.io.Serializable;
 
-class TareaTest {
+class TareaTest implements Serializable{
 	
+	/**
+	 * Id de la versión, para la serialización
+	 */
+	private static final long serialVersionUID = 1L;
 	static private DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	@Test
 	void testVencimiento() {

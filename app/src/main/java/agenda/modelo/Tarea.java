@@ -2,13 +2,18 @@
  * Clase de tipo Entidad (estructura de información). Almacena los datos de una tarea y proporciona algunas capacidades básicas para la gestión de sus campos
  */
 package agenda.modelo;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
  * 
  */
-public class Tarea {
+public class Tarea implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	static private DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	private boolean urgente=false;
 	private boolean comenzada=false;
