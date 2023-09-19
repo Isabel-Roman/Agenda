@@ -13,6 +13,9 @@ import java.io.ObjectInputStream;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.logging.Logger;
+
+import agenda.control.Agenda;
 
 public class TareaDAO {
 
@@ -22,6 +25,7 @@ public class TareaDAO {
 	private ObjectInputStream entrada = null;
 	private ArrayList<Tarea> tareas;
 	private String path;
+	private static Logger trazador = Logger.getLogger(TareaDAO.class.getName());
 
 	public TareaDAO(String path) {
 		super();
@@ -50,22 +54,27 @@ public class TareaDAO {
 	}
 
 	private ArrayList<Tarea> leeTodas() {
-
 		try {
 			// Para poder leer utilizaremos un FileInputStream pasandole
 			// como referencia el archivo de tipo File.
+			trazador.info("leeTodas las de "+path);
 			fis = new FileInputStream(path);
+			
+			trazador.info("Creado el FileInputStream");
+			
 			entrada = new ObjectInputStream(fis);
-
+            trazador.info("Creado el ObjectInputStream");
 			// En una variable objeto de tipo Persona almacenaremos
 			// el objeto leido de tipo Object convertido en un objeto
 			// de tipo persona
 			tareas = (ArrayList<Tarea>) entrada.readObject();
-
+            trazador.info("Leido objeto");
 			entrada.close();
+			trazador.info("Cerrado el input stream");
 			fis.close();
 		} catch (Exception e) {
 			System.out.println("Error al leer las tareas " + e.getMessage());
+			System.out.println(e);
 		}
 		return tareas;
 	}
