@@ -48,40 +48,69 @@ public class GestorCLI {
 	public String pedirFichero() {
 		trazador.info("pedirFichero");
 		String fichero;
-	//	Scanner teclado = new Scanner(System.in);
-		teclado.useDelimiter("\n");
-		
-
-       
+		teclado.useDelimiter("\n");       
 		System.out.println("Por favor introduzca el nombre del fichero correspondiente a la agenda\n");				
-		fichero = teclado.nextLine();
-	   
-		
-		
-		//teclado.close();
+		fichero = teclado.nextLine();	   
 		return fichero;
 	}
 
 	public byte menuTarea(Tarea tarea) {
 		byte respuesta = 0;
-
+		System.out.println(tarea);
+		System.out.println("MENU TAREA:\n"
+				+"1. Eliminar\n"
+				+"2. Marcar como comenzada\n"
+				+"3. Marcar como terminada\n"
+				+"4. Cambiar estado urgente\n"
+				+"5. Cambiar fecha de vencimiento\n"
+				+"6. Continuar\n"
+				+"Por favor elija la opción elegida \n");
+		respuesta = Byte.parseByte(teclado.nextLine());
 		return respuesta;
 	}
 
-	public void modificarTarea(Tarea tarea) {
-
-	}
-
+	
 	public void mostrarListado(ArrayList<Tarea> tareas) {
-		String listado = "Las " + tareas.size() + " tareas son:\n";
-		for (int i = 0; i < tareas.size(); i++) {
-			listado += tareas.get(i).toString() + "\n";
-		}
-		System.out.println(listado);
+		System.out.println("Las " + tareas.size() + " tareas son:\n");
+		for (int i = 0; i < tareas.size(); i++) {		
+			Tarea tarea=tareas.get(i);
+			byte respuesta=menuTarea(tarea);			
+			switch(respuesta) {
+				case 1:
+					break;
+				case 2:
+					break;
+				case 3:
+					break;
+				case 4:
+				     break;		   
+			}
+		}		
 	}
 
 	public void nuevaTarea(Tarea tarea) {
-
+         System.out.println("Introduzca los datos de la nueva tarea\n");
+         System.out.println("Nombre de la tarea:\n");
+         tarea.setNombre(teclado.nextLine());
+         System.out.println("Detalles de la tarea:\n");
+         tarea.setDetalles(teclado.nextLine());
+         System.out.println("¿Es la tarea urgente? (S/N):\n");
+         if(leeBoolean())
+        	 tarea.setUrgente();
+         System.out.println("¿Tiene una fecha de vencimiento esta tarea? (S/N):\n");
+         if(leeBoolean()) {
+        	 System.out.println("Introduzca la fecha de vencimiento en formato "+tarea.getFormato()+":\n");
+        	 tarea.setVencimiento(teclado.nextLine());
+         }
+	}
+	private boolean leeBoolean() {
+		boolean respuesta=false;
+		String linea=teclado.nextLine().trim();
+		if((linea.equals("S")) || (linea.equals("s"))) {
+			respuesta=true;
+		}
+		trazador.info("La respuesta booleana es :"+respuesta);
+		return respuesta;
 	}
 
 }

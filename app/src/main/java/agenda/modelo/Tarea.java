@@ -15,7 +15,8 @@ public class Tarea implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	static private DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+	static private String patronFormato="dd/MM/yyyy";
+	static private DateTimeFormatter fmt = DateTimeFormatter.ofPattern(patronFormato);
 	private boolean urgente = false;
 	private boolean comenzada = false;
 
@@ -40,6 +41,9 @@ public class Tarea implements Serializable {
 	 */
 	public void setUrgente() {
 		this.urgente = true;
+	}
+	public void cambiaUrgente() {
+		this.urgente=!this.urgente;
 	}
 
 	/**
@@ -114,6 +118,7 @@ public class Tarea implements Serializable {
 	private void setFechaInicio(LocalDate fechaInicio) {
 		this.fechaInicio = fechaInicio;
 	}
+	
 
 	/**
 	 * @return the fechaFin
@@ -148,7 +153,10 @@ public class Tarea implements Serializable {
 	public String toString() {
 		String tarea = "Datos de la tarea " + this.nombre + ":\n";
 		tarea += "Detalles: " + this.detalles + "\n";
+		if(!finalizada && urgente)
+			tarea+= "ESTA TAREA ES URGENTE\n";
 		tarea += "Fecha de vencimiento: " + this.vencimiento.format(fmt) + "\n";
+		
 		if (comenzada) {
 			tarea += "Iniciada el " + this.fechaInicio.format(fmt) + "\n";
 			if (finalizada) {
@@ -177,6 +185,17 @@ public class Tarea implements Serializable {
 	 */
 	public void setVencimiento(LocalDate vencimiento) {
 		this.vencimiento = vencimiento;
+	}
+	
+	/**
+	 * @param vencimiento la fecha límite para terminar la tarea
+	 */
+	public void setVencimiento(String vencimiento) {
+		this.vencimiento = LocalDate.parse(vencimiento,fmt);
+	}
+	public String getFormato() {
+		
+		return patronFormato;
 	}
 
 }

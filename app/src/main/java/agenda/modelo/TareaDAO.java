@@ -5,6 +5,7 @@ package agenda.modelo;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.EOFException;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -30,11 +31,11 @@ public class TareaDAO {
 	public TareaDAO(String path) {
 		super();
 		this.path = path;
-		tareas = new ArrayList<Tarea>();
+		
 		leeTodas();
 	}
 
-	private void save() {
+	public void guarda() {
 		try {
 			// Se crea el fichero
 			fos = new FileOutputStream(path);
@@ -72,22 +73,27 @@ public class TareaDAO {
 			entrada.close();
 			trazador.info("Cerrado el input stream");
 			fis.close();
-		} catch (Exception e) {
-			System.out.println("Error al leer las tareas " + e.getMessage());
-			System.out.println(e);
-		}
+		 } catch (FileNotFoundException e) {
+			    trazador.info(path+" no existe, se crea una agenda nueva");
+	            tareas=new ArrayList<Tarea>();
+	        } catch (EOFException e) {
+	        	trazador.info(path+" está vacío, se crea una agenda nueva");
+	            tareas=new ArrayList<Tarea>();
+	        } catch (IOException | ClassNotFoundException e) {
+	            System.err.println("Error al leer el archivo: " + e.getMessage());
+	        }			
 		return tareas;
 	}
 
 	public void guarda(Tarea tarea) {
 		tareas.add(tarea);
-		this.save();
+		this.guarda();
 	}
 
 	public void borra(Tarea tarea) {
 		tareas.indexOf(tarea);
 		tareas.remove(tarea);
-		this.save();
+		this.guarda();
 	}
 
 	/** Devuelve una tarea nueva, sin datos **/
