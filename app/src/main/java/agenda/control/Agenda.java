@@ -18,19 +18,35 @@ public class Agenda {
 	 * GestorCLI ofrece capacidades relacionadas con la interfaz de usuario facilita
 	 * el manejo de datos a través de la entrada/salida estándar, es decir, teclado
 	 * y consola (pantalla)
+	 * En esta línea se declara una variable llamada cli, que guardará una referencia a un objeto de tipo GestorCLI
+	 * Aún no se ha creado el objeto, se reserva memoria para la referencia (y nos aseguramos que no hay nada en ese espacio reservado asignando null)
 	 */
-	static GestorCLI cli;
+	static GestorCLI cli=null;
 	/**
 	 * TareaDAO ofrece capacidades relacionadas con la persistencia de las tareas En
 	 * la versión actual la persistencia es en fichero
+	 * Declaro la variable tareaDao, que guardará una referencia a un objeto de tipo TareaDAO
+	 * Aún no creo el objeto, sólo reservo memoria para la referencia, y me aseguro que ese espacio está limpio, igualando a null
 	 */
-	static TareaDAO tareaDao;
-
+	static TareaDAO tareaDao=null;
+    /**
+     * Algoritmo principal del programa
+     * @param args
+     */
 	public static void main(String[] args) {
+		/**
+		 * Variable de tipo String (cadena de caracteres) para guardar 
+		 * la ruta del fichero con las tareas de la agenda, localización en el sistema de ficheros del equipo
+		 */
 		String rutaAgenda = null;
+		/**
+		 * Variable de tipo byte para guardar la opción introducida por el usuario
+		 */
 		byte opcionMenu = 0;
-		Tarea tarea = null;
-
+		
+        /**
+         * Crea un objeto de tipo GestorCLI y guarda la referencia en la variable cli
+         */
 		cli = new GestorCLI();
 		rutaAgenda = cli.pedirFichero();
 		trazador.info("fichero = " + rutaAgenda);
@@ -46,21 +62,39 @@ public class Agenda {
 			trazador.info("respuesta = " + opcionMenu);
 			switch (opcionMenu) {
 			case 1:
+				Tarea tarea = null;
+				/**
+				 * nuevaTarea pide al usuario los datos de una tarea y los guarda en la tarea que se pasa como argumento, en este caso una recien creada
+				 */
 				cli.nuevaTarea(tarea = new Tarea());
+				/**
+				 * guarda almacena la tarea en la lista de tareas y en el fichero que contiene las tareas de la agenda
+				 */
 				tareaDao.guarda(tarea);
 				break;
 			case 2:
+				/**
+				 * listaTareas codifica un algoritmo para mostrar una lista de tareas
+				 */
 				listaTareas(tareaDao.listarTodas());
 				break;
 			case 3:
+				/**
+				 * filtrarTareas codifica un algoritmo para filtrar un conjunto de tareas y mostrarlas por pantalla
+				 */
 				filtrarTareas(tareaDao.listarTodas());
-				
-				
 				break;
 			}
 		}
 	}
 
+	/**
+	 * Muestra una a una las tareas de la lista recibida como argumento Para cada
+	 * una de ellas usa el método menuTarea de GestorCLI para mostrar el menú de
+	 * opciones disponibles para modificar la tarea
+	 * 
+	 * @param tareas
+	 */
 	static private void listaTareas(ArrayList<Tarea> tareas) {
 		byte opcionMenu;
 		trazador.info("Se mostrarán " + tareas.size() + " tareas");
@@ -99,42 +133,63 @@ public class Agenda {
 		}
 
 	}
+
+	/**
+	 * Procedimiento que se ejecutará al elegir la opción de filtrar tareas (opción
+	 * 3) Se mostrará un menú con las opciones de filtrado y se ejecutarán los
+	 * filtros seleccionados por el usuario
+	 * 
+	 * @param tareas
+	 */
 	static private void filtrarTareas(ArrayList<Tarea> tareas) {
-		byte filtro[]=cli.menuFiltrado();
-		ArrayList<Tarea> filtradas=new ArrayList<>(tareas);
-	
-		for(int i=0;i<filtro.length;i++) {
+		/**
+		 * El procedimiento menuFiltrado de GestorCLI devuelve un array con las opciones
+		 * de filtrado elegidas por el usuario
+		 */
+		byte filtro[] = cli.menuFiltrado();
+		/*
+		 * Copia la lista de tareas en una nueva, llamada filtradas la lista filtradas
+		 * se irá modificando al pasar cada filtro, El orden de aplicación de los
+		 * filtros depende del orden en el que se introdujeron en el menú El primer
+		 * filtro siempre será sobre una copia de la lista original Los posteriores
+		 * sobre el resultado del filtrado anterior.
+		 */
+		ArrayList<Tarea> filtradas = new ArrayList<>(tareas);
+		/**
+		 * Recorre el array con las opciones de filtrado elegidas por el usuario y
+		 * ejecuta cada una de ellos con los métodos de filtrado que proporciona el
+		 * objeto de la clase TareaDAO
+		 */
+		for (int i = 0; i < filtro.length; i++) {
 			/**
-			 * Análisis de las opciones de filtrado
-			 * "1. Tareas urgentes\n"
-			 * "2. Tareas comenzadas\n"
-			 * "3. Tareas no comenzadas\n"
-			 * "4. Tareas retrasadas\n"
-			 * "5. Tareas no terminadas\n"
-			 * "6. Tareas terminadas\n"
+			 * Análisis de las opciones de filtrado "1. Tareas urgentes\n" "2. Tareas
+			 * comenzadas\n" "3. Tareas no comenzadas\n" "4. Tareas retrasadas\n" "5. Tareas
+			 * no terminadas\n" "6. Tareas terminadas\n"
 			 */
-			switch(filtro[i]) {
-			case 1: //urgentes
-				filtradas=tareaDao.filtraUrgentes(filtradas);
+			switch (filtro[i]) {
+			case 1: // urgentes
+				filtradas = tareaDao.filtraUrgentes(filtradas);
 				break;
-			case 2: //comenzadas
-				filtradas=tareaDao.filtraComenzadas(filtradas);
+			case 2: // comenzadas
+				filtradas = tareaDao.filtraComenzadas(filtradas);
 				break;
-			case 3: //no comenzadas
-				filtradas=tareaDao.filtraNoComenzadas(filtradas);
+			case 3: // no comenzadas
+				filtradas = tareaDao.filtraNoComenzadas(filtradas);
 				break;
-			case 4: //retrasadas
-				filtradas=tareaDao.filtraRetrasadas(filtradas);
+			case 4: // retrasadas
+				filtradas = tareaDao.filtraRetrasadas(filtradas);
 				break;
-			case 5: //no terminadas
-				filtradas=tareaDao.filtraNoTerminadas(filtradas);
+			case 5: // no terminadas
+				filtradas = tareaDao.filtraNoTerminadas(filtradas);
 				break;
-			case 6: //terminadas
-				filtradas=tareaDao.filtraTerminadas(filtradas);
+			case 6: // terminadas
+				filtradas = tareaDao.filtraTerminadas(filtradas);
 				break;
-			}			
+			}
 		}
+		/**
+		 * Muestra una a una las tareas que han pasado el filtro seleccionado
+		 */
 		listaTareas(filtradas);
-		
 	}
 }
