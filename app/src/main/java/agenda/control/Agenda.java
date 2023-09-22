@@ -53,13 +53,15 @@ public class Agenda {
 				listaTareas(tareaDao.listarTodas());
 				break;
 			case 3:
-				trazador.info("No implementado");
+				filtrarTareas(tareaDao.listarTodas());
+				
+				
 				break;
 			}
 		}
 	}
 
-	static void listaTareas(ArrayList<Tarea> tareas) {
+	static private void listaTareas(ArrayList<Tarea> tareas) {
 		byte opcionMenu;
 		trazador.info("Se mostrarán " + tareas.size() + " tareas");
 		for (int i = 0; i < tareas.size(); i++) {
@@ -96,5 +98,30 @@ public class Agenda {
 			}
 		}
 
+	}
+	static private void filtrarTareas(ArrayList<Tarea> tareas) {
+		byte filtro[]=cli.menuFiltrado();
+		ArrayList<Tarea> filtradas=new ArrayList<>(tareas);
+	
+		for(int i=0;i<filtro.length;i++) {
+			switch(filtro[i]) {
+			case 1:
+				filtradas=tareaDao.filtraUrgentes(filtradas);
+				break;
+			case 2:
+				break;
+			case 3:
+				break;
+			case 4:
+				filtradas=tareaDao.filtraRetrasadas(filtradas);
+				break;
+			case 5:
+				break;
+			case 6:
+				break;
+			}			
+		}
+		listaTareas(filtradas);
+		
 	}
 }

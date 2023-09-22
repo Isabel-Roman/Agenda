@@ -141,7 +141,36 @@ public class TareaDAO {
 	public Tarea nueva() {
 		return new Tarea();
 	}
-
+	/**
+	 * Filtra la lista de tareas pasada, quedándose solamente con las retrasadas
+	 * @param tareas
+	 * @return
+	 */
+	public ArrayList<Tarea> filtraRetrasadas(ArrayList<Tarea> tareas) {
+		ArrayList<Tarea> filtrada=new ArrayList<Tarea>();
+		for(int i=0;i<tareas.size();i++) {
+			if(tareas.get(i).isOverdued())
+				filtrada.add(tareas.get(i));
+		}
+		return filtrada;
+	}
+	/**
+	 * Filtra la lista de tareas pasada, quedándose solamente con las urgentes
+	 * @param tareas
+	 * @return
+	 */
+	public ArrayList<Tarea> filtraUrgentes(ArrayList<Tarea> tareas) {
+		trazador.info("Filtrado urgente");
+		ArrayList<Tarea> filtrada=new ArrayList<Tarea>();
+		for(int i=0;i<tareas.size();i++) {
+			if(tareas.get(i).isUrgente()) {
+				trazador.info("Se );
+				filtrada.add(tareas.get(i));
+			}
+		}
+		return filtrada;
+	}
+	
 	/**
 	 * Formato que queremos que tenga la salida si imprimimos este objeto DAO por
 	 * pantalla En este caso un mensaje con el número de tareas y el listado

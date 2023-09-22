@@ -138,5 +138,43 @@ public class GestorCLI {
 		trazador.info("La respuesta booleana es :" + respuesta);
 		return respuesta;
 	}
+	public byte[] menuFiltrado() {
+		byte filtro[]= new byte[6];
+		byte respuesta=0;
+		byte indice=0;
+		while(respuesta!=7 && indice<6) {
+		System.out.println("Elija la opción que desea añadir al filtro\n"
+				+ "1. Tareas urgentes\n"
+				+ "2. Tareas comenzadas\n"
+				+ "3. Tareas no comenzadas\n"
+				+ "4. Tareas retrasadas\n"
+				+ "5. Tareas no terminadas\n"
+				+ "6. Tareas terminadas\n"
+				+ "7. Fin de filtro\n");
+		try {
+			respuesta =  Byte.parseByte(teclado.nextLine());
+			/**Si se ha introducido un número válido lo añado al filtro**/
+			if(respuesta>0 && respuesta<7) {
+				filtro[indice] = respuesta;
+				indice++;
+			}
+		} catch (NumberFormatException e) {
+			// Si no se ha introducido un número al convertir a byte ocurrirá una excepción
+			// no se aumenta el índice, para que el siguiente número se meta en la posición adecuada
+		}
+		}
+		if (indice==6)
+				System.out.println("Ha establecido todos los filtros posibles\n");
+		return filtro;
+	}
+	public boolean validaFiltro(String filtro) {
+		boolean valido=true;
+		/**
+		 * El filtro tiene que ser una cadena de números entre 1 y 6 separados por comas
+		 */
+		String regex="^([1-6][,])*[1-6]$";
+		valido= filtro.matches(regex);
+		return valido;
+	}
 
 }
