@@ -51,6 +51,9 @@ public class Agenda {
 		rutaAgenda = cli.pedirFichero();
 		trazador.info("fichero = " + rutaAgenda);
 		tareaDao = new TareaDAO(rutaAgenda);
+		if (tareaDao.listarTodas().size()==0) {
+			iniciaTareasCurso();
+		}
 		// Se repiten las siguientes acciones mientras el usuario no introduzca la
 		// opción 4, que es salir del programa
 		while (opcionMenu != 4) {
@@ -62,9 +65,15 @@ public class Agenda {
 			trazador.info("respuesta = " + opcionMenu);
 			switch (opcionMenu) {
 			case 1:
+				/**
+				 * La variable tarea guardará una referencia a un objeto de la clase Tarea 
+				 * En este momento esta referencia es nula
+				 */
 				Tarea tarea = null;
 				/**
-				 * nuevaTarea pide al usuario los datos de una tarea y los guarda en la tarea que se pasa como argumento, en este caso una recien creada
+				 * nuevaTarea pide al usuario los datos de una tarea y los guarda en la tarea que se pasa como argumento, 
+				 * en este caso se crea una tarea en este mismo instante, y la referencia a este objeto se guarda
+				 * en la variable tarea
 				 */
 				cli.nuevaTarea(tarea = new Tarea());
 				/**
@@ -191,5 +200,10 @@ public class Agenda {
 		 * Muestra una a una las tareas que han pasado el filtro seleccionado
 		 */
 		listaTareas(filtradas);
+	}
+	
+	/**Este método introducirá en la agenda las primeras tareas del curso*/
+	static void iniciaTareasCurso() {
+		trazador.info("No se introducen tareas por defecto");
 	}
 }

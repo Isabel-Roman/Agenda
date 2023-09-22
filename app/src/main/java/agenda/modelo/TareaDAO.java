@@ -22,23 +22,36 @@ import java.util.logging.Logger;
 public class TareaDAO {
 
 	/**
-	 * Lista de tareas manejadas en el programa
+	 * la variable tareas guardará una referencia aun objeto de tipo ArrayList
+	 * Este ArrayList será la lista de tareas manejadas en el programa
+	 * En este momento no se crea la lista, sólo se reserva en memoria espacio para una referenia
+	 * Se iguala a null para asegurar que ese referencia, en este momento, es nula
 	 */
-	private ArrayList<Tarea> tareas;
+	private ArrayList<Tarea> tareas=null;
 	/**
+	 * La variable path es una referencia a un objeto de tipo String que almacenará la
 	 * Ruta del fichero en el que se persistirán las tareas (Agenda)
+	 * En este momento aún no se ha creado el objeto, por tanto la referencia es nula
 	 */
-	private String path;
-
+	private String path=null;
+    /**
+     * Estas variables son referencias a distintos objetos que se necesitan para manejar el fichero binario
+     * que persistirá los datos de la agenda
+     */
 	private FileOutputStream fos = null;
 	private FileInputStream fis = null;
 	private ObjectOutputStream salida = null;
 	private ObjectInputStream entrada = null;
 
+	/**
+	 * Los objetos de tipo Logger sirven para enviar mensajes de trazado de código
+	 * que ayudan al programador a tener información detallada de cómo se está ejecutando el programa
+	 * Sirven principalmente para la depuración del código
+	 */
 	private static Logger trazador = Logger.getLogger(TareaDAO.class.getName());
 
 	/**
-	 * Para crear un objeto de este tipo es necesario indicar el fichero en el que
+	 * Para crear un objeto de la clase TareaDAO es necesario indicar el fichero en el que
 	 * se quiere persistir la información. Si el fichero existe y tiene tareas
 	 * almacenas estas se guardan en la lista de tareas Si el fichero no existe se
 	 * comienza con una lista de tareas vacía
@@ -115,6 +128,7 @@ public class TareaDAO {
 		}
 		return tareas;
 	}
+	
 
 	/**
 	 * Añade una tarea a la lista y las persiste todas en el fichero
