@@ -144,7 +144,7 @@ public class TareaDAO {
 	/**
 	 * Filtra la lista de tareas pasada, quedándose solamente con las retrasadas
 	 * @param tareas
-	 * @return
+	 * @return una nueva lista que sólo contiene las retrasadas
 	 */
 	public ArrayList<Tarea> filtraRetrasadas(ArrayList<Tarea> tareas) {
 		ArrayList<Tarea> filtrada=new ArrayList<Tarea>();
@@ -157,19 +157,83 @@ public class TareaDAO {
 	/**
 	 * Filtra la lista de tareas pasada, quedándose solamente con las urgentes
 	 * @param tareas
-	 * @return
+	 * @return una nueva lista que sólo contiene las urgentes
 	 */
 	public ArrayList<Tarea> filtraUrgentes(ArrayList<Tarea> tareas) {
 		trazador.info("Filtrado urgente");
 		ArrayList<Tarea> filtrada=new ArrayList<Tarea>();
 		for(int i=0;i<tareas.size();i++) {
-			if(tareas.get(i).isUrgente()) {
-				trazador.info("Se );
+			if(tareas.get(i).isUrgente())
 				filtrada.add(tareas.get(i));
-			}
 		}
 		return filtrada;
 	}
+	
+	/**
+	 * Filtra la lista de tareas pasada, quedándose solamente con las no terminadas
+	 * @param tareas
+	 * @return una nueva lista que sólo contiene las no terminadas
+	 * 	 
+	 * */
+	public ArrayList<Tarea> filtraNoTerminadas(ArrayList<Tarea> tareas) {
+		trazador.info("Filtrado no terminadas");
+		ArrayList<Tarea> filtrada=new ArrayList<Tarea>();
+		for(int i=0;i<tareas.size();i++) {
+			if(!tareas.get(i).isFinalizada())
+				filtrada.add(tareas.get(i));
+		}
+		return filtrada;
+	}
+	
+	/**
+	 * Filtra la lista de tareas pasada, quedándose solamente con las terminadas
+	 * @param tareas
+	 * @return una nueva lista que sólo contiene las terminadas
+	 * 	 
+	 * */
+	public ArrayList<Tarea> filtraTerminadas(ArrayList<Tarea> tareas) {
+		trazador.info("Filtrado terminadas");
+		ArrayList<Tarea> filtrada=new ArrayList<Tarea>();
+		for(int i=0;i<tareas.size();i++) {
+			if(tareas.get(i).isFinalizada())
+				filtrada.add(tareas.get(i));
+		}
+		return filtrada;
+	}
+	
+	/**
+	 * Filtra la lista de tareas pasada, quedándose solamente con las comenzadas
+	 * @param tareas
+	 * @return una nueva lista que sólo contiene las comenzadas
+	 * 	 
+	 * */
+	public ArrayList<Tarea> filtraComenzadas(ArrayList<Tarea> tareas) {
+		trazador.info("Filtrado comenzadas");
+		ArrayList<Tarea> filtrada=new ArrayList<Tarea>();
+		for(int i=0;i<tareas.size();i++) {
+			if(tareas.get(i).isComenzada())
+				filtrada.add(tareas.get(i));
+		}
+		return filtrada;
+	}
+	
+	
+	/**
+	 * Filtra la lista de tareas pasada, quedándose solamente con las no comenzadas
+	 * @param tareas
+	 * @return una nueva lista que sólo contiene las no comenzadas
+	 * 	 
+	 * */
+	public ArrayList<Tarea> filtraNoComenzadas(ArrayList<Tarea> tareas) {
+		trazador.info("Filtrado no comenzadas");
+		ArrayList<Tarea> filtrada=new ArrayList<Tarea>();
+		for(int i=0;i<tareas.size();i++) {
+			if(!tareas.get(i).isComenzada())
+				filtrada.add(tareas.get(i));
+		}
+		return filtrada;
+	}
+	
 	
 	/**
 	 * Formato que queremos que tenga la salida si imprimimos este objeto DAO por

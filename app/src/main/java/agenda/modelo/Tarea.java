@@ -167,11 +167,12 @@ public class Tarea implements Serializable {
 	public String toString() {
 		String tarea = "Datos de la tarea " + this.nombre + ":\n";
 		tarea += "Detalles: " + this.detalles + "\n";
-		if (!finalizada && urgente)
+		
+		if(urgente)
 			tarea += "ESTA TAREA ES URGENTE\n";
-		if (isOverdued()) {
+		if (isOverdued()) 
 			tarea += "CUIDADO ESTA TAREA VA RETRASADA\n";
-		}
+		
 		if (this.vencimiento != null)
 			tarea += "Fecha de vencimiento: " + this.vencimiento.format(fmt) + "\n";
 

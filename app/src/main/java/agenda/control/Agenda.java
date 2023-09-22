@@ -104,20 +104,33 @@ public class Agenda {
 		ArrayList<Tarea> filtradas=new ArrayList<>(tareas);
 	
 		for(int i=0;i<filtro.length;i++) {
+			/**
+			 * Análisis de las opciones de filtrado
+			 * "1. Tareas urgentes\n"
+			 * "2. Tareas comenzadas\n"
+			 * "3. Tareas no comenzadas\n"
+			 * "4. Tareas retrasadas\n"
+			 * "5. Tareas no terminadas\n"
+			 * "6. Tareas terminadas\n"
+			 */
 			switch(filtro[i]) {
-			case 1:
+			case 1: //urgentes
 				filtradas=tareaDao.filtraUrgentes(filtradas);
 				break;
-			case 2:
+			case 2: //comenzadas
+				filtradas=tareaDao.filtraComenzadas(filtradas);
 				break;
-			case 3:
+			case 3: //no comenzadas
+				filtradas=tareaDao.filtraNoComenzadas(filtradas);
 				break;
-			case 4:
+			case 4: //retrasadas
 				filtradas=tareaDao.filtraRetrasadas(filtradas);
 				break;
-			case 5:
+			case 5: //no terminadas
+				filtradas=tareaDao.filtraNoTerminadas(filtradas);
 				break;
-			case 6:
+			case 6: //terminadas
+				filtradas=tareaDao.filtraTerminadas(filtradas);
 				break;
 			}			
 		}
