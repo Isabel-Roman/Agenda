@@ -50,7 +50,14 @@ public class Agenda {
 		cli = new GestorCLI();
 		rutaAgenda = cli.pedirFichero();
 		trazador.info("fichero = " + rutaAgenda);
+		/**
+		 * Crea un objeto de tipo TareaDAO y guarda la referencia en la variable tareaDao
+		 */
 		tareaDao = new TareaDAO(rutaAgenda);
+		/**
+		 * TODO: iniciaTareasCuro se ejecutará sólo cuando la agenda esté vacía (normalmente en
+		 * la primera ejecución del programa), y rellenará la agenda con las tareas del curso
+		 */
 		if (tareaDao.listarTodas().size()==0) {
 			iniciaTareasCurso();
 		}
