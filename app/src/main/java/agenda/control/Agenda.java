@@ -13,6 +13,14 @@ import agenda.vista.GestorCLI;
 import java.util.logging.Logger;
 
 public class Agenda {
+	static {
+	      // must set before the Logger
+	      // loads logging.properties from the classpath
+	      String path = Agenda.class
+	            .getClassLoader().getResource("logging.properties").getFile();
+	      System.setProperty("java.util.logging.config.file", path);
+
+	  }
 	private static Logger trazador = Logger.getLogger(Agenda.class.getName());
 	/**
 	 * GestorCLI ofrece capacidades relacionadas con la interfaz de usuario facilita
